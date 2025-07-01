@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joystick</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.9.0/nipplejs.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+<div id="joystick-container">
+  <div id="pitchYawJoystick"></div>
+  <!-- <div id="rollJoystick">
+    <svg width="150" height="150">
+      <circle cx="75" cy="75" r="60" stroke="gray" stroke-width="2" fill="none" />
+      <circle cx="75" cy="75" r="40" stroke="gray" stroke-width="2" fill="none" />
+      <circle id="rollKnob" cx="75" cy="25" r="10" fill="yellow" />
+    </svg>
+  </div> -->
+  <div class="slider-container" id="slider">
+      <div class="draggable-button" id="button"></div>
+    </div>
+</div>
+
+<div id="controldata">
+  <p>Pitch: <span id="pitchValue">0%</span></p>
+  <p>Yaw: <span id="yawValue"> 0%</span></p>
+  <p>Roll: <span id="rollValue">0%</span></p>
+</div>
+
+<canvas id="threeCanvas"></canvas>
+
+
+<script src="{{ url_for('static', filename='joystick.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='three.js') }}"></script>
+</body>
+</html>
