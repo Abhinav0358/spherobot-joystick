@@ -34,6 +34,7 @@ def update_orientation():
 
 @app.route('/orientation', methods=['GET'])
 def get_orientation():
+    orientation_data["time"]=str(datetime.now().time())
     return jsonify(orientation_data)
 
 if __name__ == '__main__':
