@@ -27,7 +27,7 @@ function sendOrientation(pitch, roll, yaw) {
 
 function updateControlDom(pitch,yaw) {
   document.getElementById('pitchValue').textContent = `${Math.round(pitch * 100)}%`;
-  document.getElementById('yawValue').textContent = `${Math.round(yaw * 100)}%`;
+  document.getElementById('rollValue').textContent = `${Math.round(yaw * 100)}%`;
   window.pitch = pitch; 
   window.yaw = yaw; 
   sendOrientation(pitch,0,yaw)
@@ -84,7 +84,7 @@ window.rollAngle = rollAngle; // For Three.js usage
 // });
     const slider = document.getElementById("slider");
     const button = document.getElementById("button");
-    const rolldisplay=document.getElementById('rollValue')
+    const rolldisplay=document.getElementById('yawValue')
     const sliderHeight = slider.offsetHeight;
     const buttonRadius = button.offsetHeight / 2;
 
