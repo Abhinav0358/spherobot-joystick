@@ -46,26 +46,57 @@ canvas#threeCanvas {
 .slider-container {
       z-index: 1;
       position: relative;
-      left: 20px;
-      width: 10px;
-      height: 150px;
-      /* background: linear-gradient(to bottom, rgb(0, 200, 255), rgb(255, 43, 43)); */
+      width: 150px; /* Changed from 10px to 150px for horizontal */
+      height: 10px; /* Changed from 150px to 10px for horizontal */
+      /* background: linear-gradient(to right, rgb(255, 43, 43), rgb(0, 200, 255)); */
+      top: 9vh;
       background-color: cyan;
       opacity: 0.4;
       border-radius: 10px;
       border:1px solid gray;
       transition: opacity 0.3s ease;
+      transform: translateY(-50%);
     }
 
     .draggable-button {
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50px;
-      height: 10px;
+      top: 50%; /* Center vertically */
+      transform: translateY(-50%); /* Remove translateX, add translateY */
+      width: 10px; /* Changed from 50px to 10px for horizontal */
+      height: 50px; /* Changed from 10px to 50px for horizontal */
       border-radius: 5px;
       background-color: white;
       border: 2px solid #333;
       cursor: pointer;
       user-select: none;
     }
+
+@media (max-width: 1000px) {
+  #joystick-container {
+    bottom: 0px;
+    left: 40px;
+  }
+
+  #pitchYawJoystick {
+    width: 130px;
+    height: 130px;
+  }
+
+  .slider-container {
+    width: 130px; /* Horizontal width for mobile */
+    height: 8px; /* Thin height for mobile */
+    top: 21vh;
+    left: 50vw;
+    position: relative;
+    /* left: 20px; Align with joystick */
+   /* top: 50%;  Center vertically */
+    transform: translateY(-50%);
+  }
+
+  .draggable-button {
+    width: 8px; /* Thin width for horizontal slider */
+    height: 40px; /* Taller for easier touch */
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

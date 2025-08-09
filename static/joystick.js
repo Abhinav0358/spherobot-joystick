@@ -84,21 +84,21 @@ window.rollAngle = rollAngle; // For Three.js usage
 // });
     const slider = document.getElementById("slider");
     const button = document.getElementById("button");
-    const rolldisplay=document.getElementById('yawValue')
-    const sliderHeight = slider.offsetHeight;
-    const buttonRadius = button.offsetHeight / 2;
+    const rolldisplay=document.getElementById('yawValue');
+    const sliderWidth = slider.offsetWidth;
+    const buttonRadius = button.offsetWidth / 2;
 
     window.isDragging = false;
 
-    const setButtonPosition = (y) => {
-      const minY = 0;
-      const maxY = sliderHeight;
-      y = Math.min(Math.max(y, minY), maxY);
+    const setButtonPosition = (x) => {
+      const minX = 0;
+      const maxX = sliderWidth;
+      x = Math.min(Math.max(x, minX), maxX);
 
-      button.style.bottom = `${y- buttonRadius}px`;
+      button.style.left = `${x - buttonRadius}px`;
 
       // Normalize to value between -1 and 1
-      const normalized = ((y / sliderHeight) * 2) - 1;
+      const normalized = ((x / sliderWidth) * 2) - 1;
       window.rollAngle=rollAngle = normalized;
       sendOrientation(0,rollAngle,0)
       rolldisplay.textContent = `${Math.round(normalized*100)}%`;
@@ -109,18 +109,42 @@ window.rollAngle = rollAngle; // For Three.js usage
       slider.style.opacity = "0.7"; 
     });
 
+    // Add touch support for mobile
+    button.addEventListener("touchstart", (e) => {
+      e.preventDefault(); // Prevent scrolling
+      window.isDragging = true;
+      slider.style.opacity = "0.7"; 
+    });
+
     window.addEventListener("mouseup", () => {
       window.isDragging = false;
       slider.style.opacity = "0.4";
-      setButtonPosition(sliderHeight / 2); // Reset to center on mouse up
+      setButtonPosition(sliderWidth / 2); // Reset to center on mouse up
+    });
+
+    // Add touch end support
+    window.addEventListener("touchend", () => {
+      window.isDragging = false;
+      slider.style.opacity = "0.4";
+      setButtonPosition(sliderWidth / 2); // Reset to center on touch end
     });
 
     window.addEventListener("mousemove", (e) => {
       if (!window.isDragging) return;
       const rect = slider.getBoundingClientRect();
-      const y = rect.bottom - e.clientY;
-      setButtonPosition(y);
+      const x = e.clientX - rect.left;
+      setButtonPosition(x);
+    });
+
+    // Add touch move support
+    window.addEventListener("touchmove", (e) => {
+      if (!window.isDragging) return;
+      e.preventDefault(); // Prevent scrolling while dragging
+      const touch = e.touches[0]; // Get first touch point
+      const rect = slider.getBoundingClientRect();
+      const x = touch.clientX - rect.left;
+      setButtonPosition(x);
     });
 
     // Initial position (center)
-    setButtonPosition(sliderHeight / 2);
+    setButtonPosition(sliderWidth / 2);
